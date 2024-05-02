@@ -1,0 +1,116 @@
+<div class="card">
+  <div class="card-header">
+    Lista de Vehiculos
+  </div>
+  <div class="card-body">
+  <div class="row">
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Filtro</label>
+      <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Marca"
+      [(ngModel)]="filtro" (blur)="consultaVehiculos()">
+    </div>
+    <div class="col-sm-3">
+      <a [routerLink]="['/vehiculo']" class="btn btn-primary">Nuevo</a>
+    </div>
+    
+  </div>
+  <div class="row">    
+    <div class="col-sm-12">
+      Filtrado por:{{filtro}}
+    </div>
+  </div>  
+  <div class="row">    
+    <div class="col-sm-12">
+    <table class="table table-hover">
+    <thead>
+      <tr>
+        <td colspan="9"></td>
+        <td>
+          <div class="col">
+            <select class="form-control" [(ngModel)]="rows" (change)="consultaVehiculos()">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="100">100</option>
+            </select>
+          </div>         
+        </td>        
+      </tr>
+    <tr>
+    <th>
+      <button class="btn btn-sm btn-success" (click)="mostrar()"
+      [ngClass]="{'btn-success':mostrarImagen,'btn-warning':!mostrarImagen}"
+      [innerText]="mostrarImagen ? 'Mostrar Imagen':'Ocultar Imagen'">
+      Mostrar imagen</button>
+    </th>
+    <th>
+      Codigo
+    </th>
+    <th>
+      Marca
+    </th>
+    <th>
+      Modelo
+    </th>
+    <th>
+      Anio
+    </th>
+    <th>
+      Color
+    </th>
+    <th>
+      Kilometraje
+    </th>
+    <th>
+      Precio
+    </th>
+    <th>
+      Calificacion
+    </th>
+    <th>
+      Opciones
+    </th>
+    </tr>
+    </thead>
+    <tbody>      
+        <tr *ngFor="let vehiculo of listaVehiculos">
+          <td><img src="{{vehiculo.foto}}" style="height: 60px;" *ngIf="this.mostrarImagen"/></td>
+          <td>{{vehiculo.codigo}}</td>          
+          <td>{{vehiculo.marca}}</td>
+          <td>{{vehiculo.modelo | lowercase | aEspacio:"-"}}</td>
+          <td>{{vehiculo.anio}}</td>
+          <td>{{vehiculo.color}}</td>
+          <td>{{vehiculo.kilometraje | number}}</td>
+          <td>{{vehiculo.precio | currency}}</td>          
+          <td>
+            <app-calificacion [calificacion]="vehiculo.calificacion" (accion)="recepcion($event)" ></app-calificacion>
+          </td>
+          <td>
+            <div class="btn-group" role="group" aria-label="Basic example">              
+              <a type="button" class="btn btn-info" [routerLink]="['/vehiculo/'+vehiculo.codigo]" >Editar</a>
+              <button type="button" class="btn btn-danger" (click)="eliminar(vehiculo.codigo)">Eliminar</button>
+             
+            </div>
+          </td>
+        </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="9">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item"><a class="page-link" (click)="atras()">Previous</a></li>
+              <li class="page-item" *ngFor="let pagina of listaPaginas" [ngClass]="{'active':pagina==page}">
+                <a class="page-link"(click)="cambiarPagina(pagina)">{{pagina}}</a>
+              </li>             
+              <li class="page-item"><a class="page-link" (click)=" siguiente()">Next</a></li>
+            </ul>
+          </nav>
+        </td>
+      </tr>
+    </tfoot>
+    </table>
+    </div>
+    </div>   
+  </div>
+</div>

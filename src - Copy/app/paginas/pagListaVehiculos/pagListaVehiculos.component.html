@@ -1,0 +1,63 @@
+<div class="card">
+  <div class="card-header">
+    Lista de Vehiculos
+  </div>
+  <div class="card-body">
+  <div class="row">
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Filtro</label>
+      <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Marca">
+    </div>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div> 
+  <div class="row">
+    <div class="col-sm-12">
+    <table class="table table-hover">
+    <thead>
+    <tr>
+    <th>
+      <button class="btn btn-success" (click)="mostrar()"
+      [ngClass]="{'btn-success':mostrarImagen,'btn-warning':!mostrarImagen}"
+      [innerText]="mostrarImagen ? 'Mostrar Imagen':'Ocultar Imagen'">
+      Mostrar imagen</button>
+    </th>
+    <th>
+      Marca
+    </th>
+    <th>
+      Modelo
+    </th>
+    <th>
+      Anio
+    </th>
+    <th>
+      Color
+    </th>
+    <th>
+      Kilometraje
+    </th>
+    <th>
+      Precio
+    </th>
+    <th>
+      Calificacion
+    </th>
+    </tr>
+    </thead>
+    <tbody>      
+        <tr *ngFor="let vehiculo of listaVehiculos">
+          <td><img src="img/{{vehiculo.foto}}" *ngIf="this.mostrarImagen"/></td>
+          <td>{{vehiculo.Marca}}</td>
+          <td>{{vehiculo.Modelo | lowercase}}</td>
+          <td>{{vehiculo.Anio}}</td>
+          <td>{{vehiculo.Color}}</td>
+          <td>{{vehiculo.Kilometraje}}</td>
+          <td>{{vehiculo.Precio | currency}}</td>
+          <td>{{vehiculo.Calificacion}}</td>
+        </tr>
+    </tbody>
+    </table>
+    </div>
+    </div>   
+  </div>
+</div>
